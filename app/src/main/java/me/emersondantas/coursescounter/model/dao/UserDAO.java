@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import me.emersondantas.coursescounter.model.bean.Course;
+import me.emersondantas.coursescounter.connection.ConnectionFactoryMySQL;
 import me.emersondantas.coursescounter.model.bean.User;
 
 public class UserDAO extends DataAccessObject {
@@ -69,5 +69,32 @@ public class UserDAO extends DataAccessObject {
                 rs.getString("mail"),
                 rs.getString("pass"));
         return (BaseEntity) user;
+    }
+
+    @Override
+    protected String getTableName() {
+        return "users";
+    }
+
+    @Override
+    public boolean entityExists(BaseEntity obg) {
+        try {
+            User user = (User) obg;
+            Connection con = ConnectionFactoryMySQL.getInstance().getConnection();
+            PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM users WHERE mail = ? and pass = ?");
+            stmt.setString(1,user.getMail());
+            stmt.setString(2, user.getPass());
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            if(rs.getInt(1) == 1){
+                return true;
+            }else{
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao verificar se entidade existe.");
+            return false;
+        }
     }
 }
