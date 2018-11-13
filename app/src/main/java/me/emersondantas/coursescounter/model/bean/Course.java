@@ -7,7 +7,7 @@ import me.emersondantas.coursescounter.model.dao.BaseEntity;
  * @author Emerson Dantas
  */
 public class Course implements BaseEntity{
-    private long id;
+    private int id;
     private String name;
     private int numOfLessons;
     private int hoursOfTheCourse;
@@ -68,7 +68,7 @@ public class Course implements BaseEntity{
     }
 
     @Override
-    public long getId() {
+    public int getId() {
         return this.id;
     }
 }

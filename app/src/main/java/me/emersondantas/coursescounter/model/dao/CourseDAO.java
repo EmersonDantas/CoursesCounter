@@ -12,7 +12,7 @@ import me.emersondantas.coursescounter.model.bean.Course;
  * @author Emerson Dantas
  */
 public class CourseDAO extends DataAccessObject{
-    private long lastId;
+    private int lastId;
     private static CourseDAO instance;
 
     private CourseDAO() {

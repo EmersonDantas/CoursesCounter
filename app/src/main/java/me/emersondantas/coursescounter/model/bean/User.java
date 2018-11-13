@@ -6,29 +6,34 @@ import me.emersondantas.coursescounter.model.dao.BaseEntity;
  * @author Emerson Dantas
  */
 public class User implements BaseEntity{
-    private long id;
-    private String userName;
+    private int id;
+    private String name;
+    private String mail;
     private String pass;
-    
+
+    public User(int id, String name, String mail, String pass) {
+        this.id = id;
+        this.name = name;
+        this.mail = mail;
+        this.pass = pass;
+    }
+
+    public User(String name, String mail, String pass) {
+        this(0, name, mail, pass);
+    }
+
     @Override
-    public long getId() {
+    public int getId() {
         return this.id;
     }
 
-    public String getUserName() {
-        return userName;
-    }
+    public String getName() { return name; }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    public void setName(String name) { this.name = name; }
 
-    public String getPass() {
-        return pass;
-    }
+    public String getMail() { return mail; }
 
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-    
+    public String getPass() { return pass; }
+
+    public void setPass(String pass) { this.pass = pass; }
 }

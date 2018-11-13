@@ -9,11 +9,16 @@ import me.emersondantas.coursescounter.model.dao.*;
 public class Main {
     public static void main(String[] args) {
         DataAccessObject<Course> cd = CourseDAO.getInstance();
+        DataAccessObject<User> ud = UserDAO.getInstance();
+
+        //ud.add(new User("Emerson", "emerson.ruan@dce.ufpb.br", "sucodemaracuja"));
         
         for(Course c: cd.read()){
             System.out.println(c.getName());
         }
-        
-        System.out.println(cd.getLastID());
+
+        for(User u: ud.read()){
+            System.out.println(u.getName());
+        }
     }
 }
