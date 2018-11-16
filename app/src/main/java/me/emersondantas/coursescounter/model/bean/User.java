@@ -1,11 +1,10 @@
 package me.emersondantas.coursescounter.model.bean;
-import me.emersondantas.coursescounter.model.dao.BaseEntity;
 
 /**
  *
  * @author Emerson Dantas
  */
-public class User implements BaseEntity{
+public class User{
     private int id;
     private String name;
     private String mail;
@@ -22,7 +21,6 @@ public class User implements BaseEntity{
         this(0, name, mail, pass);
     }
 
-    @Override
     public int getId() {
         return this.id;
     }
@@ -36,4 +34,9 @@ public class User implements BaseEntity{
     public String getPass() { return pass; }
 
     public void setPass(String pass) { this.pass = pass; }
+
+    @Override
+    public String toString() {
+        return name + " - " + mail;
+    }
 }

@@ -1,12 +1,10 @@
 package me.emersondantas.coursescounter.model.bean;
 
-import me.emersondantas.coursescounter.model.dao.BaseEntity;
-
 /**
  * Class representing a course.
  * @author Emerson Dantas
  */
-public class Course implements BaseEntity{
+public class Course{
     private int id;
     private String name;
     private int numOfLessons;
@@ -47,9 +45,7 @@ public class Course implements BaseEntity{
         return hoursOfTheCourse;
     }
 
-    public void setHoursOfTheCourse(int hoursOfTheCourse) {
-        this.hoursOfTheCourse = hoursOfTheCourse;
-    }
+    public void setHoursOfTheCourse(int hoursOfTheCourse) { this.hoursOfTheCourse = hoursOfTheCourse; }
 
     public int getCurrentLesson() {
         return currentLesson;
@@ -63,12 +59,14 @@ public class Course implements BaseEntity{
         return linkForTheCourse;
     }
 
-    public void setLinkForTheCourse(String linkForTheCourse) {
-        this.linkForTheCourse = linkForTheCourse;
+    public void setLinkForTheCourse(String linkForTheCourse) { this.linkForTheCourse = linkForTheCourse; }
+
+    public int getId() {
+        return this.id;
     }
 
     @Override
-    public int getId() {
-        return this.id;
+    public String toString() {
+        return name;
     }
 }

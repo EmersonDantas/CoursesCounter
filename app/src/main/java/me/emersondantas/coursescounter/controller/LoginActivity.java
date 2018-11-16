@@ -1,33 +1,23 @@
 package me.emersondantas.coursescounter.controller;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import me.emersondantas.coursescounter.R;
 import me.emersondantas.coursescounter.model.bean.User;
-import me.emersondantas.coursescounter.model.dao.DataBaseHelper;
-import me.emersondantas.coursescounter.model.dao.UserDBH;
+import me.emersondantas.coursescounter.model.dao.SQLiteDataBaseHelper;
+import me.emersondantas.coursescounter.model.dao.UserDAO;
 
 public class LoginActivity extends AppCompatActivity {
-    private DataBaseHelper<User> dataBase;
+    private SQLiteDataBaseHelper<User> dataBase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        dataBase = UserDBH.getInstance(getApplicationContext());
+        dataBase = UserDAO.getInstance(getApplicationContext());
     }
 
     public void login(View view){
