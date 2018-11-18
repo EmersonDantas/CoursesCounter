@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_marginTop="8dp"
     android:background="@color/list_background_blue"
     android:orientation="vertical"
-    android:padding="4dp"
-    tools:context=".controller.AdapterCourseListController">
+    android:padding="5dp">
 
 
     <LinearLayout
@@ -20,7 +19,7 @@
             android:id="@+id/imageView"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="2dp"
+            android:layout_margin="4dp"
             app:srcCompat="@drawable/learning" />
 
         <LinearLayout
@@ -37,10 +36,9 @@
                     android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
                     android:layout_weight="1"
                     android:text="@string/name_course_list"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/menu_background"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -48,11 +46,9 @@
                     android:id="@+id/textView5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"
                     android:layout_weight="3.5"
                     android:text="@string/current_lesson_list"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/menu_background"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -67,24 +63,19 @@
                     android:id="@+id/tvName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_marginBottom="2dp"
                     android:layout_weight="1"
                     android:text="c_nm"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
+                    android:textColor="@color/menu_background"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/tvCurrentLesson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
                     android:layout_weight="3.5"
                     android:text="c_l "
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
+                    android:textColor="@color/menu_background"
+                    android:textSize="24sp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -99,9 +90,10 @@
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
             android:text="@string/progress_list"
-            android:textColor="@android:color/white"
+            android:textColor="@color/menu_background"
             android:textStyle="bold" />
 
         <ProgressBar
@@ -109,63 +101,88 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp" />
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linLayButtons"
-        android:layout_width="match_parent"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layButtons"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/btnDelete"
-            android:layout_width="20dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="30dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_weight="1"
-            android:background="@android:drawable/ic_menu_delete"
+            android:background="@drawable/baseline_delete_white_18dp"
             android:onClick="deleteCourseClick"
             android:textSize="12sp"
-            tools:text=" " />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <Button
             android:id="@+id/btnEdit"
-            android:layout_width="20dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="30dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_weight="1"
-            android:background="@android:drawable/ic_menu_edit"
+            android:background="@drawable/baseline_edit_white_18dp"
             android:onClick="editCourseClick"
             android:textSize="12sp"
-            tools:text=" " />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnDelete"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <Button
             android:id="@+id/btnInfo"
-            android:layout_width="20dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="30dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_weight="1"
-            android:background="@android:drawable/ic_menu_info_details"
+            android:background="@drawable/baseline_info_white_18dp"
             android:onClick="infoCourseClick"
             android:textSize="12sp"
-            tools:text=" " />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnEdit"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <Button
             android:id="@+id/btnIncrementLesson"
-            android:layout_width="20dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="0dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_weight="1"
-            android:background="@android:drawable/ic_menu_add"
+            android:background="@drawable/baseline_exposure_plus_1_white_18dp"
             android:onClick="incrementLessonClick"
             android:textSize="12sp"
-            tools:text=" " />
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toEndOf="@+id/btnInfo"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="164dp" />
+    </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>

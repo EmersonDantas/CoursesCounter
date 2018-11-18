@@ -5,5 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="branco_translucido">#d9ffffff</color>
     <color name="blueComponets">#7fcfed</color>
-    <color name="list_background_blue">#1d7fa3</color>
+    <color name="list_background_blue">#265556</color>
+    <color name="menu_background">#ffffff</color>
+    <color name="text_list_color">#000000</color>
 </resources>

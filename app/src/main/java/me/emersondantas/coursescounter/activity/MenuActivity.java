@@ -1,15 +1,12 @@
 package me.emersondantas.coursescounter.activity;
 
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import java.util.List;
 
@@ -23,6 +20,7 @@ public class MenuActivity extends AppCompatActivity {
     private SQLiteDataBaseHelper<Course> coursesDAO;
     private RecyclerView coursesRecyclerView;
     private List<Course> coursesList;
+    private CourseAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,30 +28,28 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         coursesDAO = CourseDAO.getInstance(getApplicationContext());
         coursesRecyclerView = findViewById(R.id.coursesRecyclerView);
-        coursesList = fillCoursesListView();
+        coursesList = fillCoursesList();
+        adapter = new CourseAdapter(coursesList);
+        settingRecycleView();
 
-        //Configurando RecyclerView
+    }
+
+    public List<Course> fillCoursesList(){
+        return coursesDAO.selectAllFromTable();
+    }
+
+    public void settingRecycleView(){
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         coursesRecyclerView.setLayoutManager(layoutManager);
         coursesRecyclerView.setHasFixedSize(true); // Otimiza a rcv, agora o tamanho é fixo.
-
-        //Configurando adapter da RecyclerView
-        CourseAdapter adapter = new CourseAdapter();
+        coursesRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
         coursesRecyclerView.setAdapter(adapter);
-
-        //setAdapterForCoursesListView(coursesList);
-
-    }
-
-    public List<Course> fillCoursesListView(){
-        return coursesDAO.selectAllFromTable();
-    }
-    public void setAdapterForCoursesListView(List<Course> coursesList){
-        //ArrayAdapter<Course> arrayAdUser = new ArrayAdapter<Course>(getApplicationContext(), android.R.layout.simple_list_item_1, coursesList);
-        //coursesRcv.setAdapter(arrayAdUser);
     }
 
     public void addNewCourse(View view){
-        //coursesDbh.insertInTo(new Course("Banco de dados MySQL",10,10,10,"www.databasemysql.net"));
+        coursesDAO.insertInTo(new Course("dança",10,10,10,"www.androiplusplusweb.net"));
+        coursesDAO.insertInTo(new Course("Como estudar dormindo",10,10,10,"www.pythonfilosofia.net"));
+        coursesDAO.insertInTo(new Course("biscoito ou bolacha",10,10,10,"www.oreonaoorel.net"));
+        coursesDAO.insertInTo(new Course("nada de nada",10,10,10,"www.mysqlaquigratis.net"));
     }
 }

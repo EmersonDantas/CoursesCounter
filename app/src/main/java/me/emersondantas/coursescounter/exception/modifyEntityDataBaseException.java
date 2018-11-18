@@ -1,4 +1,4 @@
-package me.emersondantas.coursescounter.exceptions;
+package me.emersondantas.coursescounter.exception;
 
 public class modifyEntityDataBaseException extends Exception {
     public modifyEntityDataBaseException(String msg){
