@@ -47,6 +47,7 @@ public abstract class SQLiteDataBaseHelper<T> extends SQLiteOpenHelper {
         String sql = "DELETE FROM " + getTableName() + " WHERE " + getRemovingCondition(obg);
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(sql);
+        db.close();
     }
 
     public List<T> selectAllFromTable(){

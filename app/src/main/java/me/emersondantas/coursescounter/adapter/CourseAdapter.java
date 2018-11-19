@@ -21,10 +21,11 @@ import me.emersondantas.coursescounter.model.dao.SQLiteDataBaseHelper;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHolder>{
     private List<Course> courses;
-    private LinearLayout lastSelected;
+    private ConstraintLayout lastSelected;
     private int lastSelectedPosition;
     private SQLiteDataBaseHelper<Course> courseDao;
     private Context menuActivity;
+    private MyViewHolder holder;
 
     public List<Course> getCourses() {
         return courses;
@@ -34,11 +35,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         this.courses = courses;
     }
 
-    public LinearLayout getLastselected() {
+    public ConstraintLayout getLastselected() {
         return lastSelected;
     }
 
-    public void setLastSelected(LinearLayout layout){ this.lastSelected = layout; }
+    public void setLastSelected(ConstraintLayout layout){ this.lastSelected = layout; }
 
     public void setLastSelectedPosition(int position){ this.lastSelectedPosition = position;}
 
@@ -56,8 +57,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemLista = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_course_list, parent, false);
-        MyViewHolder holder = new MyViewHolder(itemLista);
-        //onClickButtons(holder);
+        holder = new MyViewHolder(itemLista);
+        onClickButtons(holder);
         return holder;
     }
 
@@ -66,12 +67,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         Course course = courses.get(position);
         holder.name.setText(course.getName());
         holder.currentLesson.setText(String.valueOf(course.getCurrentLesson()));
-        LinearLayout layoutList = holder.root;
-        //onClickInCourse(layoutList, holder, position);
+        ConstraintLayout layoutList = holder.root;
+        onClickInCourse(layoutList, holder, position);
     }
 
-    /*
-    private void onClickInCourse(LinearLayout layoutList, MyViewHolder holder, int position){
+    private void onClickInCourse(ConstraintLayout layoutList, MyViewHolder holder, int position){
         holder.root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -93,7 +93,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
 
     }
 
-
     private void onClickButtons(MyViewHolder holder){
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,26 +101,22 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
             }
         });
     }
-    */
 
     public void removeSelectedCourse(){
         courseDao.deleteFrom(courses.get(lastSelectedPosition));
-        updateLocalList();
         notifyItemRemoved(lastSelectedPosition);
-        notifyDataSetChanged();
+        updateRecyclerView();
     }
 
-    public void addNewCourse(Course course){
-        courseDao.insertInTo(course);
-        updateLocalList();
-        notifyItemInserted(getItemCount()); //added in last positon
-        notifyDataSetChanged();
-    }
-
-    public void updateLocalList(){
+    private void updateLocalList(){
         courses.clear();
         courses = courseDao.selectAllFromTable();
         Toast.makeText(menuActivity, "Total de cursos:" + String.valueOf(getItemCount()),Toast.LENGTH_LONG).show();
+    }
+
+    public void updateRecyclerView(){
+        updateLocalList();
+        notifyDataSetChanged();
     }
 
     @Override
@@ -133,7 +128,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         TextView name, currentLesson;
         Button btnDelete, btnEdit, btnInfo, btnIncrementLesson;
         ProgressBar progressBar;
-        LinearLayout root;
+        ConstraintLayout root;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -144,7 +139,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
             btnInfo = itemView.findViewById(R.id.btnInfo);
             btnIncrementLesson = itemView.findViewById(R.id.btnIncrementLesson);
             progressBar = itemView.findViewById(R.id.progressBar);
-            root = (LinearLayout) itemView;
+            root = (ConstraintLayout) itemView;
         }
     }
 }

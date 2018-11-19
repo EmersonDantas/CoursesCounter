@@ -1,4 +1,4 @@
-package me.emersondantas.coursescounter.controller;
+package me.emersondantas.coursescounter.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
