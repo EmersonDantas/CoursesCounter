@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import me.emersondantas.coursescounter.model.bean.User;
 
@@ -16,7 +17,13 @@ public class UserDAO extends SQLiteDataBaseHelper {
     }
 
     @Override
-    public String getComparableCondition(Object obg) {
+    protected String getRemovingCondition(Object obg) {
+        User user = (User) obg;
+        return "id = " + user.getId();
+    }
+
+    @Override
+    public String getFindingCondition(Object obg) {
         User user = (User) obg;
         return "mail = '" + user.getMail() + "' and pass = '" + user.getPass()+"'";
     }

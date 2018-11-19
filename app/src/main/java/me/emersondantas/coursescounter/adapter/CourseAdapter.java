@@ -1,5 +1,6 @@
 package me.emersondantas.coursescounter.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -10,16 +11,20 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import me.emersondantas.coursescounter.R;
 import me.emersondantas.coursescounter.model.bean.Course;
+import me.emersondantas.coursescounter.model.dao.SQLiteDataBaseHelper;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHolder>{
     private List<Course> courses;
-    private LinearLayout lastselected;
+    private LinearLayout lastSelected;
     private int lastSelectedPosition;
+    private SQLiteDataBaseHelper<Course> courseDao;
+    private Context menuActivity;
 
     public List<Course> getCourses() {
         return courses;
@@ -30,15 +35,21 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     }
 
     public LinearLayout getLastselected() {
-        return lastselected;
+        return lastSelected;
     }
+
+    public void setLastSelected(LinearLayout layout){ this.lastSelected = layout; }
+
+    public void setLastSelectedPosition(int position){ this.lastSelectedPosition = position;}
 
     public int getLastSelectedPosition() {
         return lastSelectedPosition;
     }
 
-    public CourseAdapter(List<Course> courses) {
+    public CourseAdapter(List<Course> courses, SQLiteDataBaseHelper courseDao, Context context) {
         this.courses = courses;
+        this.courseDao = courseDao;
+        this.menuActivity = context;
     }
 
     @NonNull
@@ -46,7 +57,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemLista = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_course_list, parent, false);
         MyViewHolder holder = new MyViewHolder(itemLista);
-        onClickButtons(holder);
+        //onClickButtons(holder);
         return holder;
     }
 
@@ -56,30 +67,32 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         holder.name.setText(course.getName());
         holder.currentLesson.setText(String.valueOf(course.getCurrentLesson()));
         LinearLayout layoutList = holder.root;
-        onClickInCourse(layoutList, holder, position);
+        //onClickInCourse(layoutList, holder, position);
     }
 
+    /*
     private void onClickInCourse(LinearLayout layoutList, MyViewHolder holder, int position){
         holder.root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                if(lastselected != null) {
-                    lastselected.findViewById(R.id.layButtons).setVisibility(ConstraintLayout.GONE);
+                if(lastSelected != null) {
+                    lastSelected.findViewById(R.id.layButtons).setVisibility(ConstraintLayout.GONE);
                 }
 
-                if(layoutList.equals(lastselected)){
-                    lastselected.findViewById(R.id.layButtons).setVisibility(ConstraintLayout.GONE);
-                    lastselected = null;
+                if(layoutList.equals(lastSelected)){
+                    lastSelected.findViewById(R.id.layButtons).setVisibility(ConstraintLayout.GONE);
+                    lastSelected = null;
 
                 }else {
                     layoutList.findViewById(R.id.layButtons).setVisibility(ConstraintLayout.VISIBLE);
-                    lastselected = layoutList;
+                    lastSelected = layoutList;
                     lastSelectedPosition = position;
                 }
             }
         });
 
     }
+
 
     private void onClickButtons(MyViewHolder holder){
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -89,11 +102,26 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
             }
         });
     }
+    */
 
-    private void removeSelectedCourse(){
-        courses.remove(lastSelectedPosition);
+    public void removeSelectedCourse(){
+        courseDao.deleteFrom(courses.get(lastSelectedPosition));
+        updateLocalList();
         notifyItemRemoved(lastSelectedPosition);
-        notifyItemRangeChanged(lastSelectedPosition, getItemCount());
+        notifyDataSetChanged();
+    }
+
+    public void addNewCourse(Course course){
+        courseDao.insertInTo(course);
+        updateLocalList();
+        notifyItemInserted(getItemCount()); //added in last positon
+        notifyDataSetChanged();
+    }
+
+    public void updateLocalList(){
+        courses.clear();
+        courses = courseDao.selectAllFromTable();
+        Toast.makeText(menuActivity, "Total de cursos:" + String.valueOf(getItemCount()),Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import me.emersondantas.coursescounter.model.bean.Course;
 
@@ -15,6 +16,12 @@ public class CourseDAO extends SQLiteDataBaseHelper {
         createTable();
     }
 
+    @Override
+    protected String getRemovingCondition(Object obg) {
+        Course course = (Course) obg;
+        return "id = '" + course.getId() + "'";
+    }
+
     public static CourseDAO getInstance(Context contex){
         if(instance == null){
             instance = new CourseDAO(contex);
@@ -23,9 +30,9 @@ public class CourseDAO extends SQLiteDataBaseHelper {
     }
 
     @Override
-    protected String getComparableCondition(Object obg) {
+    protected String getFindingCondition(Object obg) {
         Course course = (Course) obg;
-        String sql = "nameOfCourse = '" + course.getName() + "' and numOfLessons = '" + course.getNumOfLessons() + "'";
+        String sql = "nameOfCourse = '" + course.getName() + "' AND numOfLessons = '" + course.getNumOfLessons() + "'";
         return sql;
     }
 
@@ -38,12 +45,18 @@ public class CourseDAO extends SQLiteDataBaseHelper {
         int currentLesson = cr.getInt(4);
         String linkForTheCourse = cr.getString(5);
         Course newCourse = new Course(id, nameOfCourse, numOfLessons, hoursOfTheCourse, currentLesson, linkForTheCourse);
+
+        Log.d("COURSE- ID = ", String.valueOf(id));
+        Log.d("COURSE- Name = ", nameOfCourse);
+        Log.d("COURSE- numOfLessons = ", String.valueOf(numOfLessons));
+        Log.d("COURSE- hoursOfTheC = ", String.valueOf(hoursOfTheCourse));
+        Log.d("COURSE-currentLesson = ", String.valueOf(currentLesson));
         return newCourse;
     }
 
     @Override
     protected String getCreateTableDescriptions() {
-        return "id INT(3) PRIMARY KEY, nameOfCourse VARCHAR(30) NOT NULL, numOfLessons INT(3) NOT NULL, hoursOfTheCourse INT(3) NOT NULL, currentLesson INT(3) DEFAULT 0, linkForTheCourse VARCHAR(60)";
+        return "id INTEGER PRIMARY KEY, nameOfCourse VARCHAR(30) NOT NULL, numOfLessons INT(3) NOT NULL, hoursOfTheCourse INT(3) NOT NULL, currentLesson INT(3) DEFAULT 0, linkForTheCourse VARCHAR(60)";
     }
 
     @Override

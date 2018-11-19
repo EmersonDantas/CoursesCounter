@@ -3,9 +3,9 @@ package me.emersondantas.coursescounter.model.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public abstract class SQLiteDataBaseHelper<T> extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    protected void executeSql(String SQL){
+    private void executeSql(String SQL){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(SQL);
         db.close();
@@ -41,6 +41,12 @@ public abstract class SQLiteDataBaseHelper<T> extends SQLiteOpenHelper {
         cv = prepareContentValues(cv, obg);
         db.insert(getTableName(), null, cv);
         db.close();
+    }
+
+    public void deleteFrom(T obg){
+        String sql = "DELETE FROM " + getTableName() + " WHERE " + getRemovingCondition(obg);
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(sql);
     }
 
     public List<T> selectAllFromTable(){
@@ -59,7 +65,7 @@ public abstract class SQLiteDataBaseHelper<T> extends SQLiteOpenHelper {
 
     public boolean RegisterExists(T obg){
         SQLiteDatabase db = getReadableDatabase();
-        String sql = "SELECT COUNT(*) FROM " +getTableName() + " WHERE " + getComparableCondition(obg);
+        String sql = "SELECT COUNT(*) FROM " +getTableName() + " WHERE " + getFindingCondition(obg);
         Cursor cr = db.rawQuery(sql, null);
         cr.moveToFirst();
         int countValue = cr.getInt(0);
@@ -71,7 +77,15 @@ public abstract class SQLiteDataBaseHelper<T> extends SQLiteOpenHelper {
         executeSql("CREATE TABLE IF NOT EXISTS " + getTableName() + " ( " + getCreateTableDescriptions() + " )");
     }
 
-    protected abstract String getComparableCondition(T obg);
+    @Deprecated
+    private void resetTable(){
+        onUpgrade(getWritableDatabase(), 0,1);
+        createTable();
+    }
+
+    protected abstract String getRemovingCondition(T obg);
+
+    protected abstract String getFindingCondition(T obg);
 
     protected abstract T createRegisterObject(Cursor cr);
 
