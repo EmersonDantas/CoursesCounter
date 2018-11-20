@@ -12,7 +12,7 @@
         android:id="@+id/toolbar2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/list_background_blue"
+        android:background="@color/main_color_green"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name_course_list"
-            android:textColorLink="@color/list_background_blue"
+            android:textColorLink="@color/main_color_green"
             android:textSize="18sp" />
     </android.support.design.widget.TextInputLayout>
 
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/num_lessons"
             android:inputType="number"
-            android:textColorLink="@color/list_background_blue"
+            android:textColorLink="@color/main_color_green"
             android:textSize="18sp" />
     </android.support.design.widget.TextInputLayout>
 
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/num_hours"
             android:inputType="number"
-            android:textColorLink="@color/list_background_blue"
+            android:textColorLink="@color/main_color_green"
             android:textSize="18sp" />
     </android.support.design.widget.TextInputLayout>
 
@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/num_current_lesson"
             android:inputType="number"
-            android:textColorLink="@color/list_background_blue"
+            android:textColorLink="@color/main_color_green"
             android:textSize="18sp" />
     </android.support.design.widget.TextInputLayout>
 
@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/link_course"
             android:inputType="text"
-            android:textColorLink="@color/list_background_blue"
+            android:textColorLink="@color/main_color_green"
             android:textSize="18sp" />
     </android.support.design.widget.TextInputLayout>
 
@@ -174,6 +174,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
