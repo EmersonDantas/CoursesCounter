@@ -1,6 +1,7 @@
 package me.emersondantas.coursescounter.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
@@ -31,13 +32,17 @@ public class EditCourseFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadComponents();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_edit_course, container, false);
-        loadComponents();
         return view;
     }
 

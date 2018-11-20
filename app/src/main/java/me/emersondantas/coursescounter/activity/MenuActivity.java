@@ -86,7 +86,6 @@ public class MenuActivity extends AppCompatActivity {
     public static void onClickSaveInFragment(Course courseToUpdate){
         courseDao.updateRegister(courseToUpdate);
         adapter.updateRecyclerView();
-        fragmentManager.beginTransaction().remove(editFrame);
         fragmentManager.popBackStack();
     }
 
