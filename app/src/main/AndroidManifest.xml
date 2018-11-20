@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="me.emersondantas.coursescounter">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,11 +13,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/course_counter_theme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.MenuActivity"
-            android:theme="@style/course_counter_theme">
+        <activity
+            android:name=".activity.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

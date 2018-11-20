@@ -6,14 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:theme="@style/course_counter_theme"
     tools:context=".activity.MenuActivity"
     tools:layout_editor_absoluteY="81dp">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
         android:background="@color/main_color_green"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +22,7 @@
 
         <SearchView
             android:id="@+id/searchView"
-            android:layout_width="263dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:visibility="visible"
@@ -38,8 +37,9 @@
             android:id="@+id/btnNewCourse"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="16dp"
             android:background="@android:color/transparent"
-            android:drawableRight="@android:drawable/ic_input_add"
+            android:gravity="right|center_vertical"
             android:onClick="addNewCourse"
             android:text="NOVO CURSO"
             android:textColor="@android:color/white"

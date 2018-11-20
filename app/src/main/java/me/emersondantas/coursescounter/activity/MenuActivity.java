@@ -1,9 +1,12 @@
 package me.emersondantas.coursescounter.activity;
 
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -11,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import me.emersondantas.coursescounter.R;
 import me.emersondantas.coursescounter.adapter.CourseAdapter;
@@ -28,6 +32,8 @@ public class MenuActivity extends AppCompatActivity {
     private static FragmentManager fragmentManager;
     private static Course courseSelectedInList;
     private static InfoCourseFragment infoFragment;
+    private static AlertDialog.Builder alertDialog;
+    private static Context thisContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,8 @@ public class MenuActivity extends AppCompatActivity {
         editFrame = new EditCourseFragment();
         infoFragment = new InfoCourseFragment();
         fragmentManager = getSupportFragmentManager();
+        thisContext = getApplicationContext();
+        alertDialog = new AlertDialog.Builder(this);
     }
 
     public void settingRecycleView(){
@@ -67,7 +75,6 @@ public class MenuActivity extends AppCompatActivity {
         Course c8 = new Course("Teste 8", 1, 1, 1, "www");
         Course c9 = new Course("Teste 9", 1, 1, 1, "www");
         Course c10 = new Course("Teste 10", 1, 1, 1, "www");
-
         courseDao.insertInTo(c1);
         courseDao.insertInTo(c2);
         courseDao.insertInTo(c3);
@@ -106,6 +113,31 @@ public class MenuActivity extends AppCompatActivity {
         courseDao.updateRegister(courseToUpdate);
         adapter.updateRecyclerView();
         fragmentManager.popBackStack();
+    }
+
+    public static void onClickDeleteCourse(OnClickCourseListener hook){
+        courseSelectedInList = hook.onClick();
+
+        alertDialog.setTitle("Excluindo");
+        alertDialog.setIcon(android.R.drawable.ic_menu_delete);
+        alertDialog.setMessage("Tem certeza que deseja apagar o curso " + courseSelectedInList.getName() + "?");
+        alertDialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                courseDao.deleteFrom(courseSelectedInList);
+                adapter.updateRecyclerView();
+                Toast.makeText(thisContext, "Curso excluido com sucesso!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        alertDialog.show();
     }
 
     public static void onClickEditCourse(OnClickCourseListener hook){

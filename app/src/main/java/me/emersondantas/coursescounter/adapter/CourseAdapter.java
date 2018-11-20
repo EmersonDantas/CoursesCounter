@@ -86,7 +86,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                removeSelectedCourse();
+                lastSelected.findViewById(R.id.layButtons).setVisibility(ConstraintLayout.GONE);
+                MenuActivity.onClickDeleteCourse(new MenuActivity.OnClickCourseListener() {
+                    @Override
+                    public Course onClick() {
+                        return courses.get(lastSelectedPosition);
+                    }
+                });
             }
         });
 
@@ -120,13 +126,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
 
             }
         });
-    }
-
-    private void removeSelectedCourse(){
-        lastSelected.findViewById(R.id.layButtons).setVisibility(ConstraintLayout.GONE);
-        courseDao.deleteFrom(courses.get(lastSelectedPosition));
-        notifyItemRemoved(lastSelectedPosition);
-        updateRecyclerView();
     }
 
     private void updateLocalList(){

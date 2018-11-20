@@ -1,10 +1,6 @@
 package me.emersondantas.coursescounter.activity;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +16,7 @@ import me.emersondantas.coursescounter.model.bean.Course;
 import me.emersondantas.coursescounter.model.dao.CourseDAO;
 
 public class AddNewCourseActivity extends AppCompatActivity {
-    private Button btnBack;
-    private FloatingActionButton btnRegister;
+    private Button btnBack, btnRegister;
     private EditText etName, etNumLessons, etNumHours, etCurrentLesson, etLink;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +51,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
                 try {
                     newCourse = catchingDados();
                     CourseDAO.getInstance(getApplicationContext()).insertInTo(newCourse);
+                    clearAllImput();
                     showSnackBarResult(v, true);
                     CourseAdapter.getInstance().updateRecyclerView();
                 } catch (InvalidInputException e) {
@@ -116,6 +112,14 @@ public class AddNewCourseActivity extends AppCompatActivity {
         }else{
             throw new InvalidInputException(erro);
         }
+    }
+
+    private void clearAllImput(){
+        etName.setText("");
+        etNumLessons.setText("");
+        etNumHours.setText("");
+        etCurrentLesson.setText("");
+        etLink.setText("");
     }
 
     private void showSnackBarResult(View v, boolean result){
