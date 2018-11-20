@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/menu_background"
     android:orientation="vertical"
-    android:padding="5dp"
     tools:context=".activity.MenuActivity"
     tools:layout_editor_absoluteY="81dp">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="55dp"
         android:background="@color/list_background_blue"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,40 +22,36 @@
 
         <SearchView
             android:id="@+id/searchView"
-            android:layout_width="match_parent"
+            android:layout_width="263dp"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:orientation="horizontal"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+        </SearchView>
+
+        <Button
+            android:id="@+id/btnNewCourse"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:drawableRight="@android:drawable/ic_input_add"
+            android:onClick="addNewCourse"
+            android:text="NOVO CURSO"
+            android:textColor="@android:color/white" />
+
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/coursesRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btnAddCourse"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/holo_green_dark"
-        android:clickable="true"
-        android:onClick="addNewCourse"
-        app:backgroundTint="@android:color/holo_green_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_add" />
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
