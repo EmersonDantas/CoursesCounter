@@ -1,7 +1,9 @@
 package me.emersondantas.coursescounter.activity;
 
+
 import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -12,14 +14,18 @@ import android.widget.LinearLayout;
 
 import me.emersondantas.coursescounter.R;
 import me.emersondantas.coursescounter.adapter.CourseAdapter;
+import me.emersondantas.coursescounter.fragment.EditCourseFragment;
 import me.emersondantas.coursescounter.model.bean.Course;
 import me.emersondantas.coursescounter.model.dao.CourseDAO;
 import me.emersondantas.coursescounter.model.dao.SQLiteDataBaseHelper;
 
 public class MenuActivity extends AppCompatActivity {
-    private SQLiteDataBaseHelper<Course> courseDao;
     private RecyclerView coursesRecyclerView;
-    private CourseAdapter adapter;
+    private static SQLiteDataBaseHelper<Course> courseDao;
+    private static CourseAdapter adapter;
+    private static EditCourseFragment editFrame;
+    private static FragmentManager fragmentManager;
+    private static Course courseSelectedInList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +35,8 @@ public class MenuActivity extends AppCompatActivity {
         coursesRecyclerView = findViewById(R.id.coursesRecyclerView);
         adapter = CourseAdapter.getInstance();
         settingRecycleView();
-
+        editFrame = new EditCourseFragment();
+        fragmentManager = getSupportFragmentManager();
     }
 
     public void settingRecycleView(){
@@ -70,6 +77,36 @@ public class MenuActivity extends AppCompatActivity {
         courseDao.insertInTo(c10);
 
         CourseAdapter.getInstance().updateRecyclerView();
+    }
+
+    public static void onClickBackInFragment(){
+        fragmentManager.popBackStack();
+    }
+
+    public static void onClickSaveInFragment(Course courseToUpdate){
+        courseDao.updateRegister(courseToUpdate);
+        adapter.updateRecyclerView();
+        fragmentManager.beginTransaction().remove(editFrame);
+        fragmentManager.popBackStack();
+    }
+
+    public static void onClickEditCourse(OnClickCourseListener hook){
+        courseSelectedInList = hook.onClick();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.frameEditAndInfo, editFrame);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+        EditCourseFragment.updateSelectedCourse(new EditCourseFragment.UpdateSelectedCourse() {
+            @Override
+            public Course update() {
+                return courseSelectedInList;
+            }
+        });
+    }
+
+    public interface OnClickCourseListener{
+        Course onClick();
     }
 
 }

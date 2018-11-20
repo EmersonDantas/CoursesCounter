@@ -17,6 +17,11 @@ public class UserDAO extends SQLiteDataBaseHelper {
     }
 
     @Override
+    protected String getUpdateRegisterCondition(Object obg) {
+        return null;
+    }
+
+    @Override
     protected String getRemovingCondition(Object obg) {
         User user = (User) obg;
         return "id = " + user.getId();

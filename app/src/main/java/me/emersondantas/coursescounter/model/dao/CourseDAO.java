@@ -17,6 +17,12 @@ public class CourseDAO extends SQLiteDataBaseHelper {
     }
 
     @Override
+    protected String getUpdateRegisterCondition(Object obg) {
+        Course course = (Course) obg;
+        return "nameOfCourse = '" + course.getName() + "', numOfLessons = '" + course.getNumOfLessons() + "', hoursOfTheCourse = '" + course.getHoursOfTheCourse() + "', currentLesson = '" + course.getCurrentLesson() + "', linkForTheCourse = '" + course.getLinkForTheCourse() + "' WHERE id = '" + course.getId() + "'";
+    }
+
+    @Override
     protected String getRemovingCondition(Object obg) {
         Course course = (Course) obg;
         return "id = '" + course.getId() + "'";

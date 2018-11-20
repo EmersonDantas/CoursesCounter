@@ -78,11 +78,20 @@ public abstract class SQLiteDataBaseHelper<T> extends SQLiteOpenHelper {
         executeSql("CREATE TABLE IF NOT EXISTS " + getTableName() + " ( " + getCreateTableDescriptions() + " )");
     }
 
+    public void updateRegister(T obg){
+        String sql = "UPDATE "+ getTableName() + " SET " + getUpdateRegisterCondition(obg);
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(sql);
+        db.close();
+    }
+
     @Deprecated
     private void resetTable(){
         onUpgrade(getWritableDatabase(), 0,1);
         createTable();
     }
+
+    protected abstract String getUpdateRegisterCondition(T obg);
 
     protected abstract String getRemovingCondition(T obg);
 
