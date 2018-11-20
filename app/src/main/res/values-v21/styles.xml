@@ -1,17 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/list_background_blue</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorForeground">@android:color/background_light</item>
+        <item name="android:statusBarColor">@color/list_background_blue</item>
         <item name="android:windowBackground">@android:color/background_dark</item>
     </style>
 
-    <style name="course_counter_theme" parent="Theme.AppCompat.Light.NoActionBar" >
+    <style name="course_counter_theme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:colorBackground">@android:color/background_light</item>
+        <item name="android:statusBarColor">@color/list_background_blue</item>
+        <item name="android:navigationBarColor">@color/list_background_blue</item>
     </style>
-
 </resources>

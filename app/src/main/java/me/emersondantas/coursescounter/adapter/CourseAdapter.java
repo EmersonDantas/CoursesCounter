@@ -105,7 +105,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         holder.btnInfo.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
+                MenuActivity.onClickInfoCourse(new MenuActivity.OnClickCourseListener() {
+                    @Override
+                    public Course onClick() {
+                        return courses.get(lastSelectedPosition);
+                    }
+                });
             }
         });
 

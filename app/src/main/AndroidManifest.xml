@@ -16,7 +16,7 @@
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.MenuActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/course_counter_theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

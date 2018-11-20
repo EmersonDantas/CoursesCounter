@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import me.emersondantas.coursescounter.R;
 import me.emersondantas.coursescounter.adapter.CourseAdapter;
 import me.emersondantas.coursescounter.fragment.EditCourseFragment;
+import me.emersondantas.coursescounter.fragment.InfoCourseFragment;
 import me.emersondantas.coursescounter.model.bean.Course;
 import me.emersondantas.coursescounter.model.dao.CourseDAO;
 import me.emersondantas.coursescounter.model.dao.SQLiteDataBaseHelper;
@@ -26,6 +27,7 @@ public class MenuActivity extends AppCompatActivity {
     private static EditCourseFragment editFrame;
     private static FragmentManager fragmentManager;
     private static Course courseSelectedInList;
+    private static InfoCourseFragment infoFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class MenuActivity extends AppCompatActivity {
         adapter = CourseAdapter.getInstance();
         settingRecycleView();
         editFrame = new EditCourseFragment();
+        infoFragment = new InfoCourseFragment();
         fragmentManager = getSupportFragmentManager();
     }
 
@@ -77,6 +80,22 @@ public class MenuActivity extends AppCompatActivity {
         courseDao.insertInTo(c10);
 
         CourseAdapter.getInstance().updateRecyclerView();
+    }
+
+    public static void onClickInfoCourse(OnClickCourseListener hook){
+        courseSelectedInList = hook.onClick();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.frameEditAndInfo, infoFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+        InfoCourseFragment.updateSelectedCourse(new InfoCourseFragment.UpdateSelectedCourse(){
+            @Override
+            public Course update() {
+                return courseSelectedInList;
+            }
+        });
+
     }
 
     public static void onClickBackInFragment(){

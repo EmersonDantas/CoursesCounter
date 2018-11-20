@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +20,8 @@ import me.emersondantas.coursescounter.model.bean.Course;
 import me.emersondantas.coursescounter.model.dao.CourseDAO;
 
 public class AddNewCourseActivity extends AppCompatActivity {
-    private Button btnBack, btnRegister;
+    private Button btnBack;
+    private FloatingActionButton btnRegister;
     private EditText etName, etNumLessons, etNumHours, etCurrentLesson, etLink;
 
     protected void onCreate(Bundle savedInstanceState) {
