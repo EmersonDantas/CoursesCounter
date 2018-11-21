@@ -8,4 +8,5 @@
     <color name="menu_background">#ffffff</color>
     <color name="text_list_color">#000000</color>
     <color name="frame_background_green">#328081</color>
+    <color name="transparent_background">#00ffffff</color>
 </resources>

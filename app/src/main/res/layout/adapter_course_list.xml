@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
-    android:background="@color/frame_background_green">
+    android:background="@drawable/green_list_color_rounded_edges">
 
     <LinearLayout
         android:id="@+id/linLayCommomInfo"
@@ -120,7 +120,7 @@
         android:id="@+id/layButtons"
         android:layout_width="0dp"
         android:layout_height="46dp"
-        android:background="@color/main_color_green"
+        android:background="@drawable/green_layout_buttons_list__rounded_edges"
         android:maxHeight="46dp"
         android:minHeight="46dp"
         android:orientation="horizontal"

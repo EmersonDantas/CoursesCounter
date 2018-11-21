@@ -12,7 +12,6 @@ import android.widget.Button;
 import me.emersondantas.coursescounter.R;
 import me.emersondantas.coursescounter.activity.MenuActivity;
 import me.emersondantas.coursescounter.model.bean.Course;
-import me.emersondantas.coursescounter.model.dao.CourseDAO;
 
 /**
  * A simple {@link Fragment} subclass.

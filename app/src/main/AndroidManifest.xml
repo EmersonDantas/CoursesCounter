@@ -16,10 +16,6 @@
         android:theme="@style/course_counter_theme"
         tools:ignore="GoogleAppIndexingWarning"
         >
-        <activity android:name=".activity.LoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.RegisterActivity"
-            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.MenuActivity"
             android:screenOrientation="portrait">
