@@ -1,6 +1,5 @@
 package me.emersondantas.coursescounter.adapter;
 
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
