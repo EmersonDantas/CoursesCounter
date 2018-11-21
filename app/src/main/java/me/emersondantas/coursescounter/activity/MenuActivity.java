@@ -12,9 +12,12 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import java.util.List;
 
 import me.emersondantas.coursescounter.R;
 import me.emersondantas.coursescounter.adapter.CourseAdapter;
@@ -22,10 +25,10 @@ import me.emersondantas.coursescounter.fragment.EditCourseFragment;
 import me.emersondantas.coursescounter.fragment.InfoCourseFragment;
 import me.emersondantas.coursescounter.model.bean.Course;
 import me.emersondantas.coursescounter.model.dao.CourseDAO;
-import me.emersondantas.coursescounter.model.dao.SQLiteDataBaseHelper;
 
 public class MenuActivity extends AppCompatActivity {
     private RecyclerView coursesRecyclerView;
+    private SearchView searchViewMenu;
     private static CourseDAO courseDao;
     private static CourseAdapter adapter;
     private static EditCourseFragment editFrame;
@@ -41,8 +44,10 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         courseDao = CourseDAO.getInstance(getApplicationContext());
         coursesRecyclerView = findViewById(R.id.coursesRecyclerView);
+        searchViewMenu = findViewById(R.id.searchView);
         adapter = CourseAdapter.getInstance();
         settingRecycleView();
+        settingSearchView();
         editFrame = new EditCourseFragment();
         infoFragment = new InfoCourseFragment();
         fragmentManager = getSupportFragmentManager();
@@ -56,6 +61,23 @@ public class MenuActivity extends AppCompatActivity {
         coursesRecyclerView.setHasFixedSize(true); // Otimiza a rcv, agora o tamanho é fixo.
         coursesRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
         coursesRecyclerView.setAdapter(adapter);
+    }
+
+    public void settingSearchView(){
+        searchViewMenu.setQueryHint("Buscar cursos");
+        searchViewMenu.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                List<Course> queryResult = courseDao.searchStartsWith(newText);
+                adapter.updateListWithQuery(queryResult);
+                return true;
+            }
+        });
     }
 
     public void addNewCourse(View view){
@@ -86,7 +108,7 @@ public class MenuActivity extends AppCompatActivity {
         courseDao.insertInTo(c9);
         courseDao.insertInTo(c10);
 
-        CourseAdapter.getInstance().updateRecyclerView();
+        CourseAdapter.getInstance().updateRecyclerView(courseDao.selectAllFromTable());
     }
 
     public static void onClickInfoCourse(OnClickCourseListener hook){
@@ -111,7 +133,7 @@ public class MenuActivity extends AppCompatActivity {
 
     public static void onClickSaveInFragment(Course courseToUpdate){
         courseDao.updateRegister(courseToUpdate);
-        adapter.updateRecyclerView();
+        adapter.updateRecyclerView(courseDao.selectAllFromTable());
         fragmentManager.popBackStack();
         Toast.makeText(thisContext, "Curso salvo!", Toast.LENGTH_LONG).show();
     }
@@ -119,7 +141,7 @@ public class MenuActivity extends AppCompatActivity {
     public static void onClickInIncrementLesson(OnClickCourseListener hook){
         courseSelectedInList = hook.onClick();
         courseDao.incrementCurrentLesson(courseSelectedInList);
-        adapter.updateRecyclerView();
+        adapter.updateRecyclerView(courseDao.selectAllFromTable());
     }
 
     public static void onClickDeleteCourse(OnClickCourseListener hook){
@@ -131,7 +153,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 courseDao.deleteFrom(courseSelectedInList);
-                adapter.updateRecyclerView();
+                adapter.updateRecyclerView(courseDao.selectAllFromTable());
                 Toast.makeText(thisContext, "Curso excluido com sucesso!", Toast.LENGTH_LONG).show();
             }
         });

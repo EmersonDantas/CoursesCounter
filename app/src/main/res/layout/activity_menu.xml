@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:paddingLeft="8dp"
+    android:paddingTop="8dp"
+    android:paddingRight="8dp"
     tools:context=".activity.MenuActivity"
     tools:layout_editor_absoluteY="81dp">
 
@@ -21,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <SearchView
+        <android.support.v7.widget.SearchView
             android:id="@+id/searchView"
             android:layout_width="290dp"
             android:layout_height="match_parent"
@@ -33,7 +35,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-        </SearchView>
+        </android.support.v7.widget.SearchView>
 
         <Button
             android:id="@+id/btnNewCourse"

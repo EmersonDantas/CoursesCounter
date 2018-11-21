@@ -53,7 +53,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
                     newCourse = catchingDados();
                     CourseDAO.getInstance(getApplicationContext()).insertInTo(newCourse);
                     clearAllImput();
-                    CourseAdapter.getInstance().updateRecyclerView();
+                    CourseAdapter.getInstance().updateRecyclerView(CourseDAO.getInstance(null).selectAllFromTable());
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddNewCourseActivity.this);
                     alertDialog.setTitle("Curso cadastrado com sucesso!");
                     alertDialog.setIcon(android.R.drawable.ic_dialog_info);

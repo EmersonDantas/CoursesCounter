@@ -17,6 +17,11 @@ public class UserDAO extends SQLiteDataBaseHelper {
     }
 
     @Override
+    protected String getSearchCondition() {
+        return "name";
+    }
+
+    @Override
     protected String getUpdateRegisterCondition(Object obg) {
         return null;
     }

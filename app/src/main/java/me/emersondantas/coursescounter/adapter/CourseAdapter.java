@@ -27,7 +27,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     private MyViewHolder holder;
 
     private CourseAdapter() {
-        this.courses = courses;
         this.courseDao = CourseDAO.getInstance(null);
         this.courses = courseDao.selectAllFromTable();
     }
@@ -55,6 +54,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         holder.currentLesson.setText(String.valueOf(course.getCurrentLesson()));
         ConstraintLayout layoutList = holder.root;
         onClickInCourse(layoutList, holder, position);
+    }
+
+    public void updateListWithQuery(List<Course> result){
+        updateRecyclerView(result);
     }
 
     private void onClickInCourse(ConstraintLayout layoutList, MyViewHolder holder, int position){
@@ -130,19 +133,19 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         });
     }
 
-    private void updateLocalList(){
-        courses.clear();
-        courses = courseDao.selectAllFromTable();
+    private void updateLocalList(List<Course> coursesIn){
+        this.courses.clear();
+        this.courses = coursesIn;
     }
 
-    public void updateRecyclerView(){
-        updateLocalList();
+    public void updateRecyclerView(List<Course> courses){
+        updateLocalList(courses);
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return courses.size();
+        return this.courses.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{

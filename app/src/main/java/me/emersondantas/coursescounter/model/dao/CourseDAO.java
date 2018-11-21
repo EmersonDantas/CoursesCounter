@@ -17,6 +17,11 @@ public class CourseDAO extends SQLiteDataBaseHelper {
     }
 
     @Override
+    protected String getSearchCondition() {
+        return "nameOfCourse";
+    }
+
+    @Override
     protected String getUpdateRegisterCondition(Object obg) {
         Course course = (Course) obg;
         return "nameOfCourse = '" + course.getName() + "', numOfLessons = '" + course.getNumOfLessons() + "', hoursOfTheCourse = '" + course.getHoursOfTheCourse() + "', currentLesson = '" + course.getCurrentLesson() + "', linkForTheCourse = '" + course.getLinkForTheCourse() + "' WHERE id = '" + course.getId() + "'";
@@ -51,12 +56,6 @@ public class CourseDAO extends SQLiteDataBaseHelper {
         int currentLesson = cr.getInt(4);
         String linkForTheCourse = cr.getString(5);
         Course newCourse = new Course(id, nameOfCourse, numOfLessons, hoursOfTheCourse, currentLesson, linkForTheCourse);
-
-        Log.d("COURSE- ID = ", String.valueOf(id));
-        Log.d("COURSE- Name = ", nameOfCourse);
-        Log.d("COURSE- numOfLessons = ", String.valueOf(numOfLessons));
-        Log.d("COURSE- hoursOfTheC = ", String.valueOf(hoursOfTheCourse));
-        Log.d("COURSE-currentLesson = ", String.valueOf(currentLesson));
         return newCourse;
     }
 

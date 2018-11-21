@@ -85,6 +85,22 @@ public abstract class SQLiteDataBaseHelper<T> extends SQLiteOpenHelper {
         db.close();
     }
 
+    public List<T> searchStartsWith(String query){
+        List<T> queryList = new ArrayList<>();
+        String sql = "SELECT * FROM " + getTableName() + " WHERE " + getSearchCondition() + " LIKE '%" + query + "%'";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor queryResult = db.rawQuery(sql, null);
+        if(queryResult.moveToFirst()) {
+            do {
+                queryList.add(createRegisterObject(queryResult));
+            } while (queryResult.moveToNext());
+        }
+
+        return queryList;
+    }
+
+    protected abstract String getSearchCondition();
+
     protected abstract String getUpdateRegisterCondition(T obg);
 
     protected abstract String getRemovingCondition(T obg);
