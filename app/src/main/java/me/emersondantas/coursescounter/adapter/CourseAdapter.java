@@ -123,6 +123,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         holder.btnIncrementLesson.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                lastSelected.findViewById(R.id.layButtons).setVisibility(ConstraintLayout.GONE);
                 MenuActivity.onClickInIncrementLesson(new MenuActivity.OnClickCourseListener() {
                     @Override
                     public Course onClick() {
