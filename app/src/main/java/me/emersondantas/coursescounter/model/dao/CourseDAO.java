@@ -80,4 +80,9 @@ public class CourseDAO extends SQLiteDataBaseHelper {
         cv.put("linkForTheCourse", course.getLinkForTheCourse());
         return cv;
     }
+
+    public void incrementCurrentLesson(Course course){
+        String sql = "UPDATE courses SET currentLesson = '" + (course.getCurrentLesson()+1) +"' WHERE id = '" + course.getId() + "'";
+        super.executeSql(sql);
+    }
 }

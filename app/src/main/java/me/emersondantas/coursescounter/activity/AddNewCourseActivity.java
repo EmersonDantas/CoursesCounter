@@ -1,8 +1,9 @@
 package me.emersondantas.coursescounter.activity;
 
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -52,8 +53,17 @@ public class AddNewCourseActivity extends AppCompatActivity {
                     newCourse = catchingDados();
                     CourseDAO.getInstance(getApplicationContext()).insertInTo(newCourse);
                     clearAllImput();
-                    showSnackBarResult(v, true);
                     CourseAdapter.getInstance().updateRecyclerView();
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddNewCourseActivity.this);
+                    alertDialog.setTitle("Curso cadastrado com sucesso!");
+                    alertDialog.setIcon(android.R.drawable.ic_dialog_info);
+                    alertDialog.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+                    alertDialog.show();
                 } catch (InvalidInputException e) {
                     showSnackBarResult(v, false);
                 }

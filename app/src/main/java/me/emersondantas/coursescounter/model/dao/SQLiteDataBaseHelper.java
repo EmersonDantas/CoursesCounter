@@ -29,7 +29,7 @@ public abstract class SQLiteDataBaseHelper<T> extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    private void executeSql(String SQL){
+    protected void executeSql(String SQL){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(SQL);
         db.close();
@@ -83,12 +83,6 @@ public abstract class SQLiteDataBaseHelper<T> extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(sql);
         db.close();
-    }
-
-    @Deprecated
-    private void resetTable(){
-        onUpgrade(getWritableDatabase(), 0,1);
-        createTable();
     }
 
     protected abstract String getUpdateRegisterCondition(T obg);

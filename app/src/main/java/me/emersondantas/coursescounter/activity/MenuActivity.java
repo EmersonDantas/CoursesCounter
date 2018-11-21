@@ -26,7 +26,7 @@ import me.emersondantas.coursescounter.model.dao.SQLiteDataBaseHelper;
 
 public class MenuActivity extends AppCompatActivity {
     private RecyclerView coursesRecyclerView;
-    private static SQLiteDataBaseHelper<Course> courseDao;
+    private static CourseDAO courseDao;
     private static CourseAdapter adapter;
     private static EditCourseFragment editFrame;
     private static FragmentManager fragmentManager;
@@ -65,16 +65,16 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void testAdd(){
-        Course c1 = new Course("Teste 1", 1, 1, 1, "www");
-        Course c2 = new Course("Teste 2", 1, 1, 1, "www");
-        Course c3 = new Course("Teste 3", 1, 1, 1, "www");
-        Course c4 = new Course("Teste 4", 1, 1, 1, "www");
-        Course c5 = new Course("Teste 5", 1, 1, 1, "www");
-        Course c6 = new Course("Teste 6", 1, 1, 1, "www");
-        Course c7 = new Course("Teste 7", 1, 1, 1, "www");
-        Course c8 = new Course("Teste 8", 1, 1, 1, "www");
-        Course c9 = new Course("Teste 9", 1, 1, 1, "www");
-        Course c10 = new Course("Teste 10", 1, 1, 1, "www");
+        Course c1 = new Course("Android Oreo", 530, 93, 105, "https://www.udemy.com/curso-de-desenvolvimento-android-oreo/learn/v4/overview");
+        Course c2 = new Course("Design Responsivo", 80, 25, 1, "https://www.udemy.com");
+        Course c3 = new Course("Django", 100, 30, 1, "https://www.udemy.com");
+        Course c4 = new Course("Design Thinking", 50, 15, 1, "https://www.udemy.com");
+        Course c5 = new Course("PHP orientado a objetos", 1, 1, 1, "https://www.udemy.com");
+        Course c6 = new Course("Amazon AWS", 30, 10, 1, "https://www.udemy.com");
+        Course c7 = new Course("C e C++", 60, 15, 1, "https://www.udemy.com");
+        Course c8 = new Course("Linux Server", 55, 20, 1, "https://www.udemy.com");
+        Course c9 = new Course("SQL Server", 1, 1, 1, "https://www.udemy.com");
+        Course c10 = new Course("MySQL", 40, 22, 1, "https://www.udemy.com");
         courseDao.insertInTo(c1);
         courseDao.insertInTo(c2);
         courseDao.insertInTo(c3);
@@ -113,11 +113,17 @@ public class MenuActivity extends AppCompatActivity {
         courseDao.updateRegister(courseToUpdate);
         adapter.updateRecyclerView();
         fragmentManager.popBackStack();
+        Toast.makeText(thisContext, "Curso salvo!", Toast.LENGTH_LONG).show();
+    }
+
+    public static void onClickInIncrementLesson(OnClickCourseListener hook){
+        courseSelectedInList = hook.onClick();
+        courseDao.incrementCurrentLesson(courseSelectedInList);
+        adapter.updateRecyclerView();
     }
 
     public static void onClickDeleteCourse(OnClickCourseListener hook){
         courseSelectedInList = hook.onClick();
-
         alertDialog.setTitle("Excluindo");
         alertDialog.setIcon(android.R.drawable.ic_menu_delete);
         alertDialog.setMessage("Tem certeza que deseja apagar o curso " + courseSelectedInList.getName() + "?");

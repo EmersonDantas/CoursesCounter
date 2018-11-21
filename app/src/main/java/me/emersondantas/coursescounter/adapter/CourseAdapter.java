@@ -1,7 +1,5 @@
 package me.emersondantas.coursescounter.adapter;
 
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +14,6 @@ import java.util.List;
 
 import me.emersondantas.coursescounter.R;
 import me.emersondantas.coursescounter.activity.MenuActivity;
-import me.emersondantas.coursescounter.fragment.EditCourseFragment;
 import me.emersondantas.coursescounter.model.bean.Course;
 import me.emersondantas.coursescounter.model.dao.CourseDAO;
 import me.emersondantas.coursescounter.model.dao.SQLiteDataBaseHelper;
@@ -123,7 +120,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         holder.btnIncrementLesson.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
+                MenuActivity.onClickInIncrementLesson(new MenuActivity.OnClickCourseListener() {
+                    @Override
+                    public Course onClick() {
+                        return courses.get(lastSelectedPosition);
+                    }
+                });
             }
         });
     }
