@@ -87,15 +87,15 @@ public class MenuActivity extends AppCompatActivity {
 
     public void testAdd(){
         Course c1 = new Course("Android Oreo", 530, 93, 105, "https://www.udemy.com/curso-de-desenvolvimento-android-oreo/learn/v4/overview");
-        Course c2 = new Course("Design Responsivo", 80, 25, 1, "https://www.udemy.com");
-        Course c3 = new Course("Django", 100, 30, 1, "https://www.udemy.com");
-        Course c4 = new Course("Design Thinking", 50, 15, 1, "https://www.udemy.com");
-        Course c5 = new Course("PHP orientado a objetos", 1, 1, 1, "https://www.udemy.com");
-        Course c6 = new Course("Amazon AWS", 30, 10, 1, "https://www.udemy.com");
-        Course c7 = new Course("C e C++", 60, 15, 1, "https://www.udemy.com");
-        Course c8 = new Course("Linux Server", 55, 20, 1, "https://www.udemy.com");
-        Course c9 = new Course("SQL Server", 1, 1, 1, "https://www.udemy.com");
-        Course c10 = new Course("MySQL", 40, 22, 1, "https://www.udemy.com");
+        Course c2 = new Course("Design Responsivo", 80, 25, 20, "https://www.udemy.com");
+        Course c3 = new Course("Django", 100, 30, 40, "https://www.udemy.com");
+        Course c4 = new Course("Design Thinking", 50, 15, 35, "https://www.udemy.com");
+        Course c5 = new Course("PHP orientado a objetos", 20, 1, 5, "https://www.udemy.com");
+        Course c6 = new Course("Amazon AWS", 30, 10, 25, "https://www.udemy.com");
+        Course c7 = new Course("C e C++", 60, 15, 33, "https://www.udemy.com");
+        Course c8 = new Course("Linux Server", 55, 20, 21, "https://www.udemy.com");
+        Course c9 = new Course("SQL Server", 70, 1, 13, "https://www.udemy.com");
+        Course c10 = new Course("MySQL", 40, 22, 23, "https://www.udemy.com");
         courseDao.insertInTo(c1);
         courseDao.insertInTo(c2);
         courseDao.insertInTo(c3);
