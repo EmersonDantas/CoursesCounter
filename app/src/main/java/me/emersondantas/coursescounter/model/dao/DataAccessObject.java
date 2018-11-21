@@ -11,11 +11,11 @@ import android.support.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SQLiteDataBaseHelper<T> extends SQLiteOpenHelper {
+public abstract class DataAccessObject<T> extends SQLiteOpenHelper {
     private static final String BASE_NAME = "CoursesCounter";
     private static final int BASE_VERSION = 1;
 
-    public SQLiteDataBaseHelper(@Nullable Context context) {
+    public DataAccessObject(@Nullable Context context) {
         super(context, BASE_NAME, null, BASE_VERSION);
     }
 

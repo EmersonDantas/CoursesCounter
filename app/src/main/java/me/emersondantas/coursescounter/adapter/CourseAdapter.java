@@ -1,5 +1,6 @@
 package me.emersondantas.coursescounter.adapter;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -16,14 +17,14 @@ import me.emersondantas.coursescounter.R;
 import me.emersondantas.coursescounter.activity.MenuActivity;
 import me.emersondantas.coursescounter.model.bean.Course;
 import me.emersondantas.coursescounter.model.dao.CourseDAO;
-import me.emersondantas.coursescounter.model.dao.SQLiteDataBaseHelper;
+import me.emersondantas.coursescounter.model.dao.DataAccessObject;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHolder>{
     private static CourseAdapter instance;
     private List<Course> courses;
     private ConstraintLayout lastSelected;
     private int lastSelectedPosition;
-    private SQLiteDataBaseHelper<Course> courseDao;
+    private DataAccessObject<Course> courseDao;
     private MyViewHolder holder;
 
     private CourseAdapter() {
@@ -54,6 +55,16 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         holder.currentLesson.setText(String.valueOf(course.getCurrentLesson()));
         ConstraintLayout layoutList = holder.root;
         onClickInCourse(layoutList, holder, position);
+        chargeProgressBar(holder, course);
+    }
+
+    private void chargeProgressBar(MyViewHolder holder, Course course){
+        double dv = (double) course.getCurrentLesson() / course.getNumOfLessons();
+        double porcento = dv * 100;
+        String resPorcento = String.format("%.0f", porcento);
+        holder.tvProgress.setText("Progresso: " + resPorcento + "%");
+        holder.progressBar.setMax(course.getNumOfLessons());
+        holder.progressBar.setProgress(course.getCurrentLesson());
     }
 
     public void updateListWithQuery(List<Course> result){
@@ -150,7 +161,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView name, currentLesson;
+        TextView name, currentLesson, tvProgress;
         Button btnDelete, btnEdit, btnInfo, btnIncrementLesson;
         ProgressBar progressBar;
         ConstraintLayout root;
@@ -159,6 +170,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
             super(itemView);
             name = itemView.findViewById(R.id.tvName);
             currentLesson = itemView.findViewById(R.id.tvCurrentLesson);
+            tvProgress = itemView.findViewById(R.id.tvProgress);
             btnDelete = itemView.findViewById(R.id.btnDelete);
             btnEdit = itemView.findViewById(R.id.btnEdit);
             btnInfo = itemView.findViewById(R.id.btnInfo);

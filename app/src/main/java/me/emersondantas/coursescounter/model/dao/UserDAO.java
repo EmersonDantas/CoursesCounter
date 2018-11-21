@@ -4,11 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import me.emersondantas.coursescounter.model.bean.User;
 
-public class UserDAO extends SQLiteDataBaseHelper {
+public class UserDAO extends DataAccessObject {
     private static UserDAO instance;
 
     private UserDAO(@Nullable Context context) {

@@ -2,7 +2,7 @@
     <string name="app_name">CoursesCounter</string>
     <string name="name_course_list">Nome</string>
     <string name="current_lesson_list">Aula atual</string>
-    <string name="progress_list">Progresso</string>
+    <string name="progress_list">"Progresso: "</string>
     <string name="delete_course_list">Apagar</string>
     <string name="edit_course_list">Editar</string>
     <string name="info_course_list">Info</string>

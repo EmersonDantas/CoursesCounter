@@ -4,11 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import me.emersondantas.coursescounter.model.bean.Course;
 
-public class CourseDAO extends SQLiteDataBaseHelper {
+public class CourseDAO extends DataAccessObject {
     private static CourseDAO instance;
 
     private CourseDAO(@Nullable Context context) {
